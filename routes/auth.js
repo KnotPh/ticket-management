@@ -18,7 +18,6 @@ router.post("/register", async (req, res) => {
     });
     try {
         let user = await newUser.save();
-        console.log(moment(user.createdAt).format('MM-DD-YYYY H:m:s'))
         res.status(201).json(user);
     } catch (err) {
         res.status(500).json(err);
