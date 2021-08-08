@@ -15,7 +15,6 @@ router.post("/register", async (req, res) => {
         email: req.body.email,
         age:req.body.age,
         fullName:req.body.full_name,
-        isAvtive:req.body.is_active,
     });
     try {
         let user = await newUser.save();
@@ -38,6 +37,8 @@ router.post("/login", async (req, res) => {
   
       originalPassword !== req.body.password &&
         res.status(401).json("Wrong password or username!");
+
+      !user.isActive  && res.status(401).json("Username is inactive!");
   
       const accessToken = jwt.sign(
         { id: user._id},
